@@ -64,23 +64,19 @@ begin
   AssignFile(MyFile, filename);
 
   try
-    reset(MyFile);
+    Reset(MyFile);
     While not EOF(MyFile) do
     begin
-     readln(MyFile, s);
-     s := Trim(s);
-     if not TryStrToInt(s, ii) then
-        if (Pos('-->', s) = 0) then
-           if not s.IsNullOrWhiteSpace(s) then
+      ReadLn(MyFile, s);
+      s := Trim(s);
+      if not TryStrToInt(s, ii) and (Pos('-->', s) = 0) and
+           not s.IsNullOrWhiteSpace(s) and (s.Length > 2) then
               ListBox1.Items.Add(s);
-
-
-
     end;
   finally
     CloseFile(MyFile)
   end;
-  ShowMessage(filename);
+  ShowMessage('This file loaded:' + sLineBreak + filename);
 end;
 end;
 
